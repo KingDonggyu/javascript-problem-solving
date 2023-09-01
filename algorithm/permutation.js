@@ -1,4 +1,4 @@
-// 순열
+// 순열 O(n!)
 function getPermutation(arr, count) {
   if (count === 1) {
     return arr.map((el) => [el]);
@@ -17,18 +17,20 @@ function getPermutation(arr, count) {
 }
 
 // 중복 순열
-function getRedundantPermutation() {
+function getRedundantPermutation(arr, count) {
   if (count === 1) {
     return arr.map((el) => [el]);
   }
 
   const result = [];
 
-  arr.forEach((fixed, index, origin) => {
-    const permutation = getPermutation(origin, count - 1);
+  arr.forEach((fixed, _, origin) => {
+    const permutation = getRedundantPermutation(origin, count - 1);
     const attached = permutation.map((p) => [fixed, ...p]);
     result.push(...attached);
   });
 
   return result;
 }
+
+console.log(getRedundantPermutation([1, 2, 3], 3));

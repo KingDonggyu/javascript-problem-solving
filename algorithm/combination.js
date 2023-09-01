@@ -1,4 +1,4 @@
-// 조합
+// 조합 O(2^n)
 function getCombination(arr, count) {
   if (count === 1) {
     return arr.map((el) => [el]);
