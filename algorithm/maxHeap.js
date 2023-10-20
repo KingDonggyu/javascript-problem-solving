@@ -1,56 +1,56 @@
-class MinHeap {
+class MaxHeap {
   constructor() {
-    this._heap = [];
+    this.heap = [];
   }
 
-  _insert(value) {
-    this._heap.push(value);
+  insert(value) {
+    this.heap.push(value);
     this.#heapifyUp();
   }
 
-  _remove() {
-    const count = this._heap.length;
+  remove() {
+    const count = this.heap.length;
 
     if (!count) {
       return;
     }
 
     if (count === 1) {
-      return this._heap.pop();
+      return this.heap.pop();
     }
 
-    const root = this._heap[0];
-    const leaf = this._heap.pop();
+    const root = this.heap[0];
+    const leaf = this.heap.pop();
 
-    this._heap[0] = leaf;
+    this.heap[0] = leaf;
     this.#heapifyDown();
 
     return root;
   }
 
   #heapifyUp() {
-    let index = this._heap.length - 1;
-    const inserted = this._heap[index];
+    let index = this.heap.length - 1;
+    const inserted = this.heap[index];
 
     while (index > 0) {
       const parentIndex = this.#getParentIndex(index);
-      const isMorePriority = this._heap[parentIndex] < inserted;
+      const isMorePriority = this.heap[parentIndex] < inserted;
 
       if (!isMorePriority) {
         break;
       }
 
-      this._heap[index] = this._heap[parentIndex];
+      this.heap[index] = this.heap[parentIndex];
       index = parentIndex;
     }
 
-    this._heap[index] = inserted;
+    this.heap[index] = inserted;
   }
 
   #heapifyDown() {
     let index = 0;
-    const root = this._heap[index];
-    const count = this._heap.length;
+    const root = this.heap[index];
+    const count = this.heap.length;
 
     while (this.#getLeftChildIndex(index) < count) {
       const leftChildIndex = this.#getLeftChildIndex(index);
@@ -58,23 +58,23 @@ class MinHeap {
 
       const isSelectRightChild =
         rightChildIndex < count &&
-        this._heap[rightChildIndex] > this._heap[leftChildIndex];
+        this.heap[rightChildIndex] > this.heap[leftChildIndex];
 
       const selectedChildIndex = isSelectRightChild
         ? rightChildIndex
         : leftChildIndex;
 
-      const hasAnotherPriorityItem = this._heap[selectedChildIndex] > root;
+      const hasAnotherPriorityItem = this.heap[selectedChildIndex] > root;
 
       if (!hasAnotherPriorityItem) {
         break;
       }
 
-      this._heap[index] = this._heap[selectedChildIndex];
+      this.heap[index] = this.heap[selectedChildIndex];
       index = selectedChildIndex;
     }
 
-    this._heap[index] = root;
+    this.heap[index] = root;
   }
 
   #getParentIndex(child) {
@@ -89,3 +89,5 @@ class MinHeap {
     return parent * 2 + 2;
   }
 }
+
+module.exports = MaxHeap;

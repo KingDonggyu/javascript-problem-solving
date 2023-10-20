@@ -1,11 +1,12 @@
-class MinHeap {
-  constructor() {
+class Heap {
+  constructor(type = 'min') {
     this.heap = [];
+    this.type = type;
   }
 
   insert(value) {
     this.heap.push(value);
-    this.#heapifyUp();
+    this.type === this.#heapifyUp();
   }
 
   remove() {
@@ -23,7 +24,7 @@ class MinHeap {
     const leaf = this.heap.pop();
 
     this.heap[0] = leaf;
-    this.#heapifyDown();
+    this.type === this.#heapifyDown();
 
     return root;
   }
@@ -34,7 +35,10 @@ class MinHeap {
 
     while (index > 0) {
       const parentIndex = this.#getParentIndex(index);
-      const isMorePriority = this.heap[parentIndex] > inserted;
+      const isMorePriority =
+        this.type === 'min'
+          ? this.heap[parentIndex] > inserted
+          : this.heap[parentIndex] < inserted;
 
       if (!isMorePriority) {
         break;
@@ -58,13 +62,18 @@ class MinHeap {
 
       const isSelectRightChild =
         rightChildIndex < count &&
-        this.heap[rightChildIndex] < this.heap[leftChildIndex];
+        (this.type === 'min'
+          ? this.heap[rightChildIndex] < this.heap[leftChildIndex]
+          : this.heap[rightChildIndex] > this.heap[leftChildIndex]);
 
       const selectedChildIndex = isSelectRightChild
         ? rightChildIndex
         : leftChildIndex;
 
-      const hasAnotherPriorityItem = this.heap[selectedChildIndex] < root;
+      const hasAnotherPriorityItem =
+        this.type === 'min'
+          ? this.heap[selectedChildIndex] < root
+          : this.heap[selectedChildIndex] > root;
 
       if (!hasAnotherPriorityItem) {
         break;
@@ -89,5 +98,3 @@ class MinHeap {
     return parent * 2 + 2;
   }
 }
-
-module.exports = MinHeap;

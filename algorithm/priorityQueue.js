@@ -1,20 +1,20 @@
-import { MinHeap } from './minHeap';
+const MinHeap = require('./minHeap');
 
-export class PriorityQueue extends MinHeap {
+class PriorityQueue extends MinHeap {
   constructor(arr = []) {
     super();
     arr.forEach((x) => this.push(x));
   }
 
   size() {
-    return this._heap.length;
+    return this.heap.length;
   }
 
   push(value) {
-    this._insert(value);
+    this.insert(value);
   }
 
   pop() {
-    return this._remove();
+    return this.remove();
   }
 }
