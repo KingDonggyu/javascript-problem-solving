@@ -9,8 +9,9 @@ function getPermutation(arr, count) {
   arr.forEach((fixed, index, origin) => {
     const sliced = [...origin.slice(0, index), ...origin.slice(index + 1)];
     const permutation = getPermutation(sliced, count - 1);
-    const attached = permutation.map((p) => [fixed, ...p]);
-    result.push(...attached);
+    permutation.forEach((p) => {
+      result.push([fixed, ...p]);
+    });
   });
 
   return result;
@@ -26,11 +27,10 @@ function getRedundantPermutation(arr, count) {
 
   arr.forEach((fixed, _, origin) => {
     const permutation = getRedundantPermutation(origin, count - 1);
-    const attached = permutation.map((p) => [fixed, ...p]);
-    result.push(...attached);
+    permutation.forEach((p) => {
+      result.push([fixed, ...p]);
+    });
   });
 
   return result;
 }
-
-console.log(getRedundantPermutation([1, 2, 3], 3));
