@@ -1,6 +1,6 @@
-// https://www.acmicpc.net/problem/13549
-// 13549번: 숨바꼭질 3
-// 골드 5
+// https://www.acmicpc.net/problem/13975
+// 13975번: 파일 합치기 3
+// 골드 4 (fail)
 
 class MinHeap {
   constructor() {
@@ -15,7 +15,7 @@ class MinHeap {
   _remove() {
     const count = this._heap.length;
 
-    if (count === 0) {
+    if (!count) {
       return;
     }
 
@@ -38,8 +38,9 @@ class MinHeap {
 
     while (index > 0) {
       const parentIndex = this.#getParentIndex(index);
+      const isMorePriority = this._heap[parentIndex] > inserted;
 
-      if (this._heap[parentIndex].key <= inserted.key) {
+      if (!isMorePriority) {
         break;
       }
 
@@ -61,13 +62,15 @@ class MinHeap {
 
       const isSelectRightChild =
         rightChildIndex < count &&
-        this._heap[rightChildIndex].key < this._heap[leftChildIndex].key;
+        this._heap[rightChildIndex] < this._heap[leftChildIndex];
 
       const selectedChildIndex = isSelectRightChild
         ? rightChildIndex
         : leftChildIndex;
 
-      if (this._heap[selectedChildIndex].key >= root.key) {
+      const hasAnotherPriorityItem = this._heap[selectedChildIndex] < root;
+
+      if (!hasAnotherPriorityItem) {
         break;
       }
 
@@ -78,20 +81,25 @@ class MinHeap {
     this._heap[index] = root;
   }
 
-  #getParentIndex(childIndex) {
-    return Math.floor((childIndex - 1) / 2);
+  #getParentIndex(child) {
+    return Math.floor((child - 1) / 2);
   }
 
-  #getLeftChildIndex(parentIndex) {
-    return parentIndex * 2 + 1;
+  #getLeftChildIndex(parent) {
+    return parent * 2 + 1;
   }
 
-  #getRightChildIndex(parentIndex) {
-    return parentIndex * 2 + 2;
+  #getRightChildIndex(parent) {
+    return parent * 2 + 2;
   }
 }
 
 class PriorityQueue extends MinHeap {
+  constructor(arr) {
+    super();
+    arr.forEach((x) => this.push(x));
+  }
+
   size() {
     return this._heap.length;
   }
@@ -105,38 +113,17 @@ class PriorityQueue extends MinHeap {
   }
 }
 
-function solution(N, K) {
-  const MAX = 200000;
-  const priorityQueue = new PriorityQueue();
-  const visited = new Array(MAX + 1).fill(false);
+function solution(K, files) {
+  let answer = 0;
+  const priorityQueue = new PriorityQueue(files);
 
-  priorityQueue.push({ key: 0, value: N });
-
-  while (priorityQueue.size()) {
-    const { key: time, value: x } = priorityQueue.pop();
-
-    visited[x] = true;
-
-    if (x === K) {
-      return time;
-    }
-
-    const isPossibleWalkingForward = x + 1 <= MAX && !visited[x + 1];
-    const isPossibleWalkingBackward = x - 1 >= 0 && !visited[x - 1];
-    const isPossibleTeleport = x * 2 <= MAX && !visited[x * 2];
-
-    if (isPossibleTeleport) {
-      priorityQueue.push({ key: time, value: x * 2 });
-    }
-
-    if (isPossibleWalkingForward) {
-      priorityQueue.push({ key: time + 1, value: x + 1 });
-    }
-
-    if (isPossibleWalkingBackward) {
-      priorityQueue.push({ key: time + 1, value: x - 1 });
-    }
+  while (priorityQueue.size() > 1) {
+    const minSum = priorityQueue.pop() + priorityQueue.pop();
+    priorityQueue.push(minSum);
+    answer += minSum;
   }
+
+  return answer;
 }
 
 const readline = require('readline');
@@ -146,9 +133,29 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+let T = null;
+let K = null;
+
 rl.on('line', (line) => {
-  const [N, K] = line.split(' ').map((x) => Number(x));
-  const answer = solution(N, K);
+  if (!T) {
+    T = Number(line);
+    return;
+  }
+
+  if (!K) {
+    K = Number(line);
+    return;
+  }
+
+  const files = line.split(' ').map((x) => Number(x));
+  const answer = solution(K, files);
+
   console.log(answer);
-  rl.close();
+
+  T -= 1;
+  K = null;
+
+  if (T === 0) {
+    rl.close();
+  }
 });

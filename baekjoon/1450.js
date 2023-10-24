@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/1450
 // 1450번: 냅색문제
-// 골드 1
+// 골드 1 (fail)
 
 function getCombination(arr, count) {
   if (count === 1) {

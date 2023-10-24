@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/2618
 // 2681번: 경찰차
-// 플래티넘 4
+// 플래티넘 4 (fail)
 
 function getDistance(source, destination) {
   return (

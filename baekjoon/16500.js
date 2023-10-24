@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/16500
 // 16500번: 문자열 판별
-// 골드 5
+// 골드 5 (fail)
 
 function solution(target, words) {
   const dp = new Array(target.length + 1).fill(false);

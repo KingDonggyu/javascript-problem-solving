@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/bigger-is-greater/problem?isFullScreen=true
 // "Bigger is Greater"
-// DIFFICULTY: Medium
+// DIFFICULTY: Medium (fail)
 
 function biggerIsGreater(w) {
   const chars = Array.from(w);

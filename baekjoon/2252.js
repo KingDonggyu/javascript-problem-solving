@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/2252
 // 2252번: 줄 세우기
-// 골드 3
+// 골드 3 (fail)
 
 function topologySort(graph, indegreeCounts) {
   const result = [];

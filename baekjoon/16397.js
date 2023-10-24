@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/16397
 // 16379번: 탈출
-// 골드 4
+// 골드 4 (fail)
 
 const MAX = 100000;
 

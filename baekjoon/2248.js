@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/2248
 // 2248번: 이진수 찾기
-// 골드 3
+// 골드 3 (fail)
 
 function solution(N, L, I) {
   const dp = Array.from({ length: N + 1 }, () => new Array(L + 1).fill(0));

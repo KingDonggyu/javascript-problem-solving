@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/2138
 // 2138번: 전구와 스위치
-// 골드 5
+// 골드 5 (fail)
 
 function press(state) {
   return state === 1 ? 0 : 1;

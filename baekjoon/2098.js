@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/2098
 // 2098번: 외판원 순회
-// 골드 1
+// 골드 1 (fail)
 
 function solution(graph) {
   const n = graph.length;

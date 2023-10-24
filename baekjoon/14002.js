@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/14002
 // 14002번: 가장 긴 증가하는 부분 수열 4
-// 골드 4
+// 골드 4 (fail)
 
 function solution(N, numbers) {
   const dp = numbers.map((x) => [x]);
