@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/22866
 // 22866번: 탑 보기
-// 골드 3
+// 골드 3 (fail)
 
 function popLowerBuildings(stack, buildings, height) {
   const index = stack[stack.length - 1];
