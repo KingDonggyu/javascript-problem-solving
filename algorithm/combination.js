@@ -1,35 +1,37 @@
 // 조합 O(n^count)
-function getCombination(arr, count) {
+function getCombinations(items, count) {
   if (count === 1) {
-    return arr.map((el) => [el]);
+    return items.map((item) => [item]);
   }
 
-  const result = [];
+  const combinations = [];
 
-  arr.forEach((fixed, index, origin) => {
-    const sliced = origin.slice(index + 1);
-    const combination = getCombination(sliced, count - 1);
-    const attached = combination.map((c) => [fixed, ...c]);
-    result.push(...attached);
+  items.forEach((fixedItem, index) => {
+    const slicedItems = items.slice(index + 1);
+    const subCombinations = getCombinations(slicedItems, count - 1);
+    subCombinations.forEach((subCombination) => {
+      combinations.push([fixedItem, ...subCombination]);
+    });
   });
 
-  return result;
+  return combinations;
 }
 
 // 중복 조합
-function getRedundantCombination(arr, count) {
+function getRedundantCombinations(items, count) {
   if (count === 1) {
-    return arr.map((el) => [el]);
+    return items.map((item) => [item]);
   }
 
-  const result = [];
+  const combinations = [];
 
-  arr.forEach((fixed, index, origin) => {
-    const sliced = origin.slice(index);
-    const combination = getRedundantCombination(sliced, count - 1);
-    const attached = combination.map((c) => [fixed, ...c]);
-    result.push(...attached);
+  items.forEach((fixedItem, index) => {
+    const slicedItems = items.slice(index);
+    const subCombinations = getRedundantCombinations(slicedItems, count - 1);
+    subCombinations.forEach((subCombination) => {
+      combinations.push([fixedItem, ...subCombination]);
+    });
   });
 
-  return result;
+  return combinations;
 }

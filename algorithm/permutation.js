@@ -1,36 +1,36 @@
-// 순열 O(n!)
-function getPermutation(arr, count) {
+// 순열 O(n^count)
+function getPermutations(items, count) {
   if (count === 1) {
-    return arr.map((el) => [el]);
+    return items.map((item) => [item]);
   }
 
-  const result = [];
+  const permutations = [];
 
-  arr.forEach((fixed, index, origin) => {
-    const sliced = [...origin.slice(0, index), ...origin.slice(index + 1)];
-    const permutation = getPermutation(sliced, count - 1);
-    permutation.forEach((p) => {
-      result.push([fixed, ...p]);
+  items.forEach((fixedItem, index) => {
+    const slicedItems = [...items.slice(0, index), ...items.slice(index + 1)];
+    const subPermutations = getPermutations(slicedItems, count - 1);
+    subPermutations.forEach((currentPermutation) => {
+      permutations.push([fixedItem, ...currentPermutation]);
     });
   });
 
-  return result;
+  return permutations;
 }
 
 // 중복 순열
-function getRedundantPermutation(arr, count) {
+function getRedundantPermutations(items, count) {
   if (count === 1) {
-    return arr.map((el) => [el]);
+    return items.map((item) => [item]);
   }
 
-  const result = [];
+  const permutations = [];
 
-  arr.forEach((fixed, _, origin) => {
-    const permutation = getRedundantPermutation(origin, count - 1);
-    permutation.forEach((p) => {
-      result.push([fixed, ...p]);
+  items.forEach((fixedItem) => {
+    const subPermutations = getRedundantPermutations(items, count - 1);
+    subPermutations.forEach((currentPermutation) => {
+      permutations.push([fixedItem, ...currentPermutation]);
     });
   });
 
-  return result;
+  return permutations;
 }

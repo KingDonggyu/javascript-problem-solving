@@ -1,6 +1,6 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/214289
 // 2023 현대모비스 알고리즘 경진대회 예선: 에어컨
-// Lv. 3
+// Lv. 3 (fail)
 
 function get2DArray(rowSize, colSize, value) {
   return Array.from({ length: rowSize }, () => Array(colSize).fill(value));
