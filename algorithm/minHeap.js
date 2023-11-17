@@ -3,15 +3,19 @@ class MinHeap {
     this.heap = [];
   }
 
-  insert(value) {
+  size() {
+    return this.heap.length;
+  }
+
+  push(value) {
     this.heap.push(value);
     this.#heapifyUp();
   }
 
-  remove() {
+  pop() {
     const count = this.heap.length;
 
-    if (!count) {
+    if (count === 0) {
       return;
     }
 
@@ -30,11 +34,11 @@ class MinHeap {
 
   #heapifyUp() {
     let index = this.heap.length - 1;
-    const inserted = this.heap[index];
+    const pushed = this.heap[index];
 
     while (index > 0) {
       const parentIndex = this.#getParentIndex(index);
-      const isMorePriority = this.heap[parentIndex] > inserted;
+      const isMorePriority = this.heap[parentIndex] > pushed;
 
       if (!isMorePriority) {
         break;
@@ -44,7 +48,7 @@ class MinHeap {
       index = parentIndex;
     }
 
-    this.heap[index] = inserted;
+    this.heap[index] = pushed;
   }
 
   #heapifyDown() {
@@ -64,9 +68,9 @@ class MinHeap {
         ? rightChildIndex
         : leftChildIndex;
 
-      const hasAnotherPriorityItem = this.heap[selectedChildIndex] < root;
+      const isMorePriority = this.heap[selectedChildIndex] < root;
 
-      if (!hasAnotherPriorityItem) {
+      if (!isMorePriority) {
         break;
       }
 
