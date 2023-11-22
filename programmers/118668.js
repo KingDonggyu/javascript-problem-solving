@@ -1,3 +1,7 @@
+// school.programmers.co.kr/learn/courses/30/lessons/118668
+// 2022 KAKAO TECH INTERNSHIP: 코딩 테스트 공부
+// Lv. 4 (fail)
+
 function min(a, b) {
   return a < b ? a : b;
 }
